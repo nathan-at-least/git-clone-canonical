@@ -5,6 +5,10 @@ use std::str::FromStr;
 pub struct Url(url::Url);
 
 impl Url {
+    pub fn as_str(&self) -> &str {
+        self.0.as_str()
+    }
+
     pub fn domain(&self) -> &str {
         // Guaranteed to work if self was parsed with `FromStr`:
         self.try_domain().unwrap()

@@ -1,8 +1,9 @@
+use derive_more::Into;
 use std::fmt;
 use std::path::PathBuf;
 use std::str::FromStr;
 
-#[derive(Debug)]
+#[derive(Debug, Into)]
 pub struct BaseDir(PathBuf);
 
 impl Default for BaseDir {
