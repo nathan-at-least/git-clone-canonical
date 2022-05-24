@@ -1,8 +1,13 @@
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        let result = 2 + 2;
-        assert_eq!(result, 4);
-    }
-}
+mod app;
+mod basedir;
+mod clone;
+mod error;
+mod options;
+mod url;
+
+pub use self::app::run;
+pub use self::basedir::BaseDir;
+pub use self::clone::clone;
+pub use self::error::{Error, Result};
+pub use self::options::Options;
+pub use self::url::Url;
