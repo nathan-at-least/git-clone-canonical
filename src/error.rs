@@ -8,6 +8,7 @@ pub enum Error {
     InvalidRepoPath(PathBuf),
     IO(std::io::Error),
     ChildExit(String, Option<i32>),
+    LogInit(log::SetLoggerError),
 }
 
 impl Error {
@@ -16,12 +17,13 @@ impl Error {
 
         match self {
             Cli(e) => e.exit(),
-            InvalidRepoPath(p) => log::error!("Invalid repository path: {:?}", p.display()),
+            InvalidRepoPath(p) => log::error!("invalid repository path; {:?}", p.display()),
             IO(e) => log::error!("{}", e),
             ChildExit(cmd, code) => {
-                log::error!("Child exited with error code {:?}", code);
-                log::error!("Child command: {}", cmd);
+                log::error!("child exited with error code {:?}", code);
+                log::error!("child command: {}", cmd);
             }
+            LogInit(e) => log::error!("failed to initialize logging; {}", e),
         }
 
         std::process::exit(1);
