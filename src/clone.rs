@@ -4,6 +4,7 @@ use std::path::PathBuf;
 pub fn clone(basedir: BaseDir, url: Url) -> Result<()> {
     log_init();
     let repopath = get_repo_path(basedir.into(), &url);
+    log::info!("repository path: {:?}", repopath.display());
     if repopath.exists() {
         git::fetch(&repopath, url)
     } else {
