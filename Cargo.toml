@@ -1,6 +1,6 @@
 [package]
 name = "git-clone-canonical"
-version = "0.1.0"
+version = "0.1.1"
 description = "Clone git repositories into a local path derived from the URL."
 repository = "https://github.com/nathan-at-least/git-clone-canonical"
 edition = "2021"
