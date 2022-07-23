@@ -1,9 +1,9 @@
-use derive_more::Into;
+use std::convert::AsRef;
 use std::fmt;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
-#[derive(Debug, Into)]
+#[derive(Debug)]
 pub struct BaseDir(PathBuf);
 
 impl Default for BaseDir {
@@ -13,6 +13,12 @@ impl Default for BaseDir {
                 .unwrap_or_else(|| PathBuf::from("/tmp"))
                 .join("src"),
         )
+    }
+}
+
+impl AsRef<Path> for BaseDir {
+    fn as_ref(&self) -> &Path {
+        self.0.as_ref()
     }
 }
 

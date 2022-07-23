@@ -9,6 +9,10 @@ pub struct Options {
     #[clap(long, default_value_t)]
     pub basedir: BaseDir,
 
+    /// show the associated path, performing no other operations
+    #[clap(long, short)]
+    pub show_path: bool,
+
     /// The git clone url (git-url-like sources are not supported)
     #[clap()]
     pub url: Url,
