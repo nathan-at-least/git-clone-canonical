@@ -8,7 +8,13 @@ where
 {
     let mut path = basedir.as_ref().to_path_buf();
     path.push(url.domain());
-    for segment in url.path_segments() {
+    let mut segments = url.path_segments().peekable();
+    while let Some(segment) = segments.next() {
+        let segment = if segments.peek().is_none() {
+            segment.strip_suffix(".git").unwrap_or(segment)
+        } else {
+            segment
+        };
         path.push(segment);
     }
     path
