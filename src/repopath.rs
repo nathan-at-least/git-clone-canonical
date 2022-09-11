@@ -13,3 +13,6 @@ where
     }
     path
 }
+
+#[cfg(test)]
+mod tests;
