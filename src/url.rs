@@ -67,3 +67,6 @@ impl<'a> Iterator for PathSegments<'a> {
         self.0.as_mut().and_then(|it| it.next())
     }
 }
+
+#[cfg(test)]
+mod tests;
