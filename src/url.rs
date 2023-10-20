@@ -33,7 +33,21 @@ impl FromStr for Url {
     type Err = ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let u = Url(url::Url::from_str(s)?);
+        // Patch the input string from a "git-style" pseudo-url to a proper url.
+        //
+        // A git-style url is `user@host:path` which is patched to `ssh://user@host/path`
+        let patched = s
+            .split_once(':')
+            .map(|(prefix, suffix)| {
+                if suffix.starts_with("//") {
+                    s.to_string()
+                } else {
+                    format!("ssh://{prefix}/{suffix}")
+                }
+            })
+            .unwrap_or(s.to_string());
+
+        let u = Url(url::Url::from_str(&patched)?);
         u.try_domain()?;
         Ok(u)
     }
@@ -67,3 +81,6 @@ impl<'a> Iterator for PathSegments<'a> {
         self.0.as_mut().and_then(|it| it.next())
     }
 }
+
+#[cfg(test)]
+mod tests;
